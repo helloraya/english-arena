@@ -12,10 +12,11 @@
         :root {
             --bg-color: #121212;
             --card-bg: #1E1E1E;
-            --primary-yellow: #F4D03F; /* Cyber Yellow */
+            --primary-yellow: #F4D03F;
             --text-white: #FFFFFF;
             --text-gray: #B0B0B0;
             --accent-red: #E74C3C;
+            --accent-green: #2ECC71;
             --border-color: #333333;
         }
 
@@ -26,114 +27,91 @@
             font-family: 'Poppins', sans-serif;
             color: var(--text-white);
             overflow-x: hidden;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 30px 30px;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
         }
 
-        /* --- UI COMPONENTS --- */
+        /* --- UTILS --- */
         .glass-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            transition: all 0.3s ease;
-        }
-        .glass-card:hover { border-color: var(--primary-yellow); transform: translateY(-5px); }
-
-        .btn {
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            padding: 12px 25px; border-radius: 8px; /* Lebih kotak dikit biar sporty */
-            font-family: 'Fredoka', sans-serif; font-weight: 600; text-decoration: none;
-            transition: all 0.2s ease; cursor: pointer; border: none; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
         
-        .btn-primary { background: var(--primary-yellow); color: #000; font-weight: 800; }
-        .btn-primary:hover { background: #FFEA00; box-shadow: 0 0 15px rgba(244, 208, 63, 0.4); transform: scale(1.02); }
-
-        .btn-outline { background: transparent; border: 2px solid var(--primary-yellow); color: var(--primary-yellow); }
-        .btn-outline:hover { background: var(--primary-yellow); color: black; }
-
-        .section-title { font-family: 'Fredoka', sans-serif; font-size: 2.5rem; color: var(--primary-yellow); text-align: center; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 10px rgba(244, 208, 63, 0.3); }
-        .section-subtitle { text-align: center; color: var(--text-gray); margin-bottom: 3rem; font-size: 1rem; }
+        .section-title { font-family: 'Fredoka', sans-serif; font-size: 2rem; color: var(--primary-yellow); text-align: center; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 2px; }
+        .section-subtitle { text-align: center; color: var(--text-gray); margin-bottom: 2rem; font-size: 0.9rem; }
 
         /* --- NAVIGATION --- */
         nav {
-            display: flex; justify-content: center; align-items: center;
-            padding: 1.5rem 5%; position: fixed; width: 100%; top: 0; z-index: 100;
-            background: rgba(18, 18, 18, 0.9); backdrop-filter: blur(10px);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 5%; position: fixed; width: 100%; top: 0; z-index: 100;
+            background: rgba(18, 18, 18, 0.95); backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border-color);
         }
-        .logo { font-family: 'Fredoka', sans-serif; font-size: 1.5rem; color: var(--text-white); font-weight: 600; }
+        .logo { font-family: 'Fredoka', sans-serif; font-size: 1.2rem; color: var(--text-white); font-weight: 600; display:flex; align-items:center; gap:10px; }
         .logo i { color: var(--primary-yellow); }
 
-        /* --- HERO & SEARCH SECTION --- */
-        .hero { min-height: 90vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 100px 20px 50px; text-align: center; }
+        /* --- HERO SECTION --- */
+        .hero { min-height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 100px 20px 50px; text-align: center; }
         
-        .search-container { position: relative; width: 100%; max-width: 500px; margin-bottom: 40px; }
+        /* SEARCH BAR AUTO-COMPLETE */
+        .search-wrapper { position: relative; width: 100%; max-width: 500px; margin-bottom: 30px; }
         .search-box {
-            width: 100%; padding: 20px 25px; border-radius: 50px; border: 2px solid var(--border-color);
-            background: #000; color: white; font-size: 1.2rem; font-family: 'Poppins'; outline: none;
-            transition: all 0.3s; text-align: center;
+            width: 100%; padding: 15px 25px; border-radius: 50px; border: 2px solid var(--border-color);
+            background: #000; color: white; font-size: 1.1rem; font-family: 'Poppins'; outline: none;
+            text-align: center; transition: 0.3s;
         }
-        .search-box:focus { border-color: var(--primary-yellow); box-shadow: 0 0 20px rgba(244, 208, 63, 0.2); }
-        .search-btn {
-            position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
-            background: var(--primary-yellow); color: black; border: none; width: 45px; height: 45px;
-            border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center;
+        .search-box:focus { border-color: var(--primary-yellow); box-shadow: 0 0 15px rgba(244, 208, 63, 0.3); }
+        
+        .suggestions-box {
+            position: absolute; top: 110%; left: 0; width: 100%;
+            background: #1A1A1A; border: 1px solid #333; border-radius: 12px;
+            overflow: hidden; z-index: 10; display: none;
         }
+        .suggestion-item { padding: 12px 20px; cursor: pointer; border-bottom: 1px solid #333; text-align: left; transition: 0.2s; }
+        .suggestion-item:hover { background: #333; color: var(--primary-yellow); }
 
-        .teacher-mini { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; background: #000; padding: 10px 20px; border-radius: 50px; border: 1px solid #333; }
-        .teacher-mini img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary-yellow); }
-        .teacher-social a { color: var(--text-gray); margin-left: 10px; font-size: 1.2rem; transition: 0.3s; }
-        .teacher-social a:hover { color: var(--primary-yellow); }
-
-        /* --- SONG OF THE DAY --- */
-        .song-card {
-            background: linear-gradient(45deg, #111, #222); border: 1px solid #333;
-            padding: 15px 25px; border-radius: 12px; display: flex; align-items: center; gap: 15px;
-            margin-bottom: 40px; max-width: 400px; width: 100%;
+        /* VOCAB CARD */
+        .vocab-card {
+            background: linear-gradient(135deg, #1A1A1A, #252525); border-left: 4px solid var(--primary-yellow);
+            padding: 20px; border-radius: 12px; max-width: 600px; width: 100%; margin-bottom: 30px; text-align: left;
+            position: relative; overflow: hidden;
         }
-        .music-anim { display: flex; gap: 3px; height: 20px; align-items: flex-end; }
-        .bar { width: 4px; background: var(--primary-yellow); animation: equalizer 1s infinite ease-in-out; }
-        .bar:nth-child(2) { animation-delay: 0.2s; } .bar:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes equalizer { 0%, 100% { height: 5px; } 50% { height: 20px; } }
+        .vocab-word { font-family: 'Fredoka'; font-size: 1.5rem; color: var(--primary-yellow); margin-bottom: 5px; }
+        .vocab-meaning { font-style: italic; color: #ccc; margin-bottom: 10px; }
+        .vocab-example { font-size: 0.9rem; color: #888; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 6px; }
 
-        /* --- LEADERBOARD --- */
-        .podium-container { display: flex; justify-content: center; align-items: flex-end; gap: 15px; margin-bottom: 3rem; min-height: 400px; }
+        /* --- LEADERBOARD & LIST --- */
+        .podium-container { display: flex; justify-content: center; align-items: flex-end; gap: 15px; margin-bottom: 3rem; min-height: 350px; }
         .podium-card { 
-            text-align: center; padding: 1.5rem; width: 30%; max-width: 220px;
+            text-align: center; padding: 1.5rem; width: 30%; max-width: 200px;
             background: var(--card-bg); border-radius: 16px; border: 1px solid #333;
-            display: flex; flex-direction: column; justify-content: center; position: relative;
+            display: flex; flex-direction: column; justify-content: center; position: relative; cursor: pointer; transition: 0.3s;
         }
+        .podium-card:hover { transform: translateY(-5px); border-color: var(--primary-yellow); }
         
-        .rank-1 { height: 360px; border: 3px solid var(--primary-yellow); box-shadow: 0 0 30px rgba(244, 208, 63, 0.1); order: 2; z-index: 2; transform: translateY(-20px); }
-        .rank-2 { height: 300px; border-bottom: 4px solid #C0C0C0; order: 1; }
-        .rank-3 { height: 260px; border-bottom: 4px solid #CD7F32; order: 3; }
+        .rank-1 { height: 320px; border: 2px solid var(--primary-yellow); box-shadow: 0 0 20px rgba(244, 208, 63, 0.1); order: 2; z-index: 2; transform: translateY(-20px); }
+        .rank-2 { height: 260px; border-bottom: 4px solid #C0C0C0; order: 1; }
+        .rank-3 { height: 220px; border-bottom: 4px solid #CD7F32; order: 3; }
         
-        .player-score { color: var(--primary-yellow); font-weight: 800; font-size: 1.5rem; font-family: 'Fredoka'; margin-top: 10px; }
-
-        /* Extended List (Rank 4-9) */
-        .extended-list {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-width: 800px; margin: 0 auto;
-        }
-        .list-item {
+        .list-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-width: 900px; margin: 0 auto; }
+        .player-row {
             background: #1A1A1A; padding: 15px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between;
-            border-left: 3px solid #333; transition: 0.3s;
+            border: 1px solid #333; transition: 0.2s; cursor: pointer;
         }
-        .list-item:hover { border-left-color: var(--primary-yellow); background: #222; }
-        .rank-num { font-weight: bold; color: var(--text-gray); width: 30px; }
-        
+        .player-row:hover { background: #222; border-color: var(--primary-yellow); }
+
         /* --- MENU GRID --- */
-        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; max-width: 800px; margin: 50px auto; padding: 0 20px; }
+        .menu-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; max-width: 800px; margin: 40px auto; padding: 0 20px; }
         .menu-btn {
-            background: #1A1A1A; padding: 20px; border-radius: 16px; text-align: center; cursor: pointer; transition: 0.3s; border: 1px solid #333;
+            background: #1E1E1E; padding: 20px 10px; border-radius: 16px; text-align: center; cursor: pointer; transition: 0.3s; border: 1px solid #333;
         }
-        .menu-btn i { font-size: 2rem; color: var(--primary-yellow); margin-bottom: 10px; }
+        .menu-btn i { font-size: 1.5rem; color: var(--primary-yellow); margin-bottom: 10px; }
         .menu-btn:hover { background: #252525; transform: translateY(-5px); border-color: var(--primary-yellow); }
 
-        /* --- MODAL --- */
+        /* --- MODALS --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px);
@@ -141,34 +119,29 @@
             display: flex; align-items: center; justify-content: center;
         }
         .modal-overlay.active { opacity: 1; visibility: visible; }
-        
         .modal-content {
             background: #181818; width: 90%; max-width: 600px; max-height: 85vh;
             border-radius: 24px; padding: 2rem; position: relative; border: 1px solid #333;
-            transform: scale(0.8); transition: all 0.3s; overflow-y: auto; color: white;
+            transform: scale(0.9); transition: all 0.3s; overflow-y: auto; color: white;
         }
         .modal-overlay.active .modal-content { transform: scale(1); }
-        .close-modal { position: absolute; top: 20px; right: 20px; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
+        .close-modal { position: absolute; top: 15px; right: 20px; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
 
-        /* PROFILE MODAL STYLES */
-        .profile-header { text-align: center; margin-bottom: 20px; }
-        .profile-avatar { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--primary-yellow); margin: 0 auto 15px; }
-        .stat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-        .stat-box { background: #222; padding: 15px; border-radius: 12px; text-align: center; border: 1px solid #333; }
-        .stat-val { font-size: 1.2rem; font-weight: bold; color: var(--primary-yellow); }
-        .stat-label { font-size: 0.8rem; color: #888; }
+        /* HP HEARTS */
+        .hp-hearts { color: #E74C3C; font-size: 1.1rem; letter-spacing: 2px; margin: 5px 0; }
+        .shop-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #333; font-size: 0.9rem; }
+        .shop-price { background: #333; padding: 4px 10px; border-radius: 4px; color: var(--primary-yellow); font-weight: bold; font-size: 0.8rem; }
 
-        /* SHOP STYLES */
-        .shop-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #333; }
-        .shop-price { background: #222; padding: 5px 10px; border-radius: 5px; color: var(--primary-yellow); font-weight: bold; font-size: 0.9rem; }
-
-        /* RESPONSIVE */
+        /* MOBILE RESPONSIVE */
         @media (max-width: 768px) {
-            .hero-text h1 { font-size: 2.5rem; }
-            .podium-container { flex-direction: column; height: auto; align-items: center; }
-            .rank-1, .rank-2, .rank-3 { height: auto; width: 100%; transform: none; order: 0; min-height: 150px; margin-bottom: 10px; }
-            .rank-1 { order: -1; }
-            .extended-list { grid-template-columns: 1fr; }
+            .hero-text h1 { font-size: 2rem; }
+            .podium-container { flex-direction: column; height: auto; align-items: center; margin-bottom: 2rem; }
+            .rank-1, .rank-2, .rank-3 { width: 100%; max-width: 100%; height: auto; min-height: 80px; flex-direction: row; align-items: center; justify-content: space-between; padding: 15px; margin-bottom: 10px; transform: none; order: 0; }
+            .rank-1 { order: -1; border-width: 2px; }
+            .rank-1 .avatar-small { width: 40px; height: 40px; margin-right: 15px; }
+            
+            .list-container { grid-template-columns: 1fr; }
+            .menu-grid { grid-template-columns: 2fr 2fr; }
         }
     </style>
 </head>
@@ -176,162 +149,84 @@
 
     <nav>
         <div class="logo"><i class="fas fa-bolt"></i> ENGLISH 8 ARENA</div>
+        <div style="font-size:0.8rem; color:#888;">V6.0</div>
     </nav>
 
     <section class="hero">
-        <div class="teacher-mini">
-            <img src="https://i.pinimg.com/736x/21/20/95/21209581895691079d363f820202796e.jpg" alt="Ms. Raya">
-            <span style="font-weight: 600;">Ms. Raya</span>
-            <div class="teacher-social">
-                <a href="https://instagram.com/rayaazr" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://wa.me/6285171667580" target="_blank"><i class="fab fa-whatsapp"></i></a>
-            </div>
+        <div style="width: 100%; max-width: 500px; margin-bottom: 30px; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.5);">
+            <iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="0" height="175" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/album/birds-of-a-feather/1739659134?i=1739659424"></iframe>
         </div>
 
-        <h1 style="font-family: 'Fredoka'; font-size: 3rem; margin-bottom: 20px; color: white;">WHO ARE YOU?</h1>
+        <h1 style="font-family: 'Fredoka'; font-size: 2.5rem; margin-bottom: 20px; color: white;">WELCOME PLAYER</h1>
         
-        <div class="search-container">
-            <input type="text" id="searchInput" class="search-box" placeholder="Type your name here..." onkeypress="handleEnter(event)">
-            <button class="search-btn" onclick="searchPlayer()"><i class="fas fa-search"></i></button>
+        <div class="search-wrapper">
+            <input type="text" id="searchInput" class="search-box" placeholder="Type your name..." oninput="showSuggestions(this.value)">
+            <div id="suggestions" class="suggestions-box"></div>
         </div>
 
-        <div class="song-card">
-            <div style="background: #333; padding: 10px; border-radius: 8px;"><i class="fas fa-music" style="color:var(--primary-yellow);"></i></div>
-            <div style="flex: 1;">
-                <div style="font-size: 0.8rem; color: #888; text-transform: uppercase;">Song of the Day</div>
-                <div style="font-weight: 600;">Birds of a Feather - Billie Eilish</div> </div>
-            <div class="music-anim">
-                <div class="bar"></div><div class="bar"></div><div class="bar"></div>
-            </div>
+        <div id="vocab-display" class="vocab-card" style="display:none;">
+            <div style="font-size:0.7rem; color:#666; text-transform:uppercase; letter-spacing:1px; margin-bottom:5px;">Vocab of the Day</div>
+            <div class="vocab-word" id="v-word">Loading...</div>
+            <div class="vocab-meaning" id="v-meaning">...</div>
+            <div class="vocab-example" id="v-example">...</div>
         </div>
 
         <div class="menu-grid">
             <div class="menu-btn" onclick="openModal('rulesModal')">
-                <i class="fas fa-book-dead"></i>
-                <div>Server Rules</div>
+                <i class="fas fa-book-dead"></i><br>Rules
             </div>
             <div class="menu-btn" onclick="openModal('shopModal')">
-                <i class="fas fa-shopping-cart"></i>
-                <div>Item Shop</div>
+                <i class="fas fa-shopping-bag"></i><br>Shop
             </div>
             <div class="menu-btn" onclick="openModal('missionsModal')">
-                <i class="fas fa-scroll"></i>
-                <div>Missions</div>
+                <i class="fas fa-scroll"></i><br>Missions
             </div>
             <div class="menu-btn" onclick="openModal('libraryModal')">
-                <i class="fas fa-book"></i>
-                <div>Library</div>
+                <i class="fas fa-book"></i><br>Library
             </div>
         </div>
     </section>
 
-    <section style="padding: 2rem 5%;">
-        <div class="section-title">TOP PLAYERS</div>
-        <p class="section-subtitle">The rulers of English 8 Zone</p>
+    <section style="padding: 1rem 5%;">
+        <div class="section-title">LEADERBOARD</div>
+        <p class="section-subtitle">Tap any name to see full profile</p>
 
-        <div id="podium-display" class="podium-container">
-            <div style="color: #444;">Syncing Database...</div>
-        </div>
+        <div id="podium-display" class="podium-container">Loading Database...</div>
 
-        <div id="extended-list-display" class="extended-list">
-            </div>
-
+        <div id="list-display" class="list-container"></div>
+        
         <div style="text-align: center; margin-top: 30px;">
-            <button onclick="openModal('fullLeaderboardModal')" class="btn btn-outline">View Full Rankings</button>
+            <button onclick="openModal('fullLeaderboardModal')" class="btn" style="background:transparent; border:1px solid #333; color:#888; padding:10px 20px; border-radius:50px;">View All Players</button>
         </div>
     </section>
-
-    <footer style="text-align: center; padding: 50px; color: #444; font-size: 0.8rem;">
-        ENGLISH 8 ARENA V5.0 | MS. RAYA
-    </footer>
 
     <div id="profileModal" class="modal-overlay">
         <div class="modal-content" style="text-align: center;">
             <button onclick="closeModal('profileModal')" class="close-modal">&times;</button>
-            <div id="profile-content">
-                </div>
+            <div id="profile-content"></div>
         </div>
     </div>
 
     <div id="shopModal" class="modal-overlay">
         <div class="modal-content">
             <button onclick="closeModal('shopModal')" class="close-modal">&times;</button>
-            <h2 class="section-title" style="font-size: 2rem; margin-bottom: 20px;">ITEM SHOP</h2>
+            <h2 class="section-title" style="font-size: 1.8rem;">ITEM SHOP</h2>
+            <div style="text-align:center; font-size:0.8rem; color:#888; margin-bottom:20px;">Use Gold to buy. Contact Ms. Raya to redeem.</div>
             
-            <div style="font-size: 0.8rem; color: #888; margin-bottom: 20px; text-align: center;">
-                Use your GOLD to buy these items. Contact Ms. Raya to redeem.
-            </div>
+            <h3 style="color:var(--primary-yellow); margin-top:15px; font-size:1rem;">⚡ CONSUMABLES</h3>
+            <div class="shop-item"><div>🧪 <b>XP POTION</b> (Booster +5 di Tugas)</div><div class="shop-price">500 G</div></div>
+            <div class="shop-item"><div>🔐 <b>SECRET CODE</b> (Unlock Extra XP)</div><div class="shop-price">FREE</div></div>
 
-            <h3 style="color: var(--primary-yellow); margin-top: 20px;">TIER 1: COMMON</h3>
+            <h3 style="color:var(--primary-yellow); margin-top:15px; font-size:1rem;">🎪 PRIVILEGES</h3>
             <div class="shop-item"><div>🎵 DJ Pass (Request Song)</div><div class="shop-price">50 G</div></div>
-            <div class="shop-item"><div>✏️ Emergency Kit (Alat Tulis)</div><div class="shop-price">75 G</div></div>
             <div class="shop-item"><div>🚽 VIP Toilet Pass</div><div class="shop-price">100 G</div></div>
-
-            <h3 style="color: var(--primary-yellow); margin-top: 20px;">TIER 2: RARE</h3>
             <div class="shop-item"><div>🧸 Comfy Pass (Bantal)</div><div class="shop-price">200 G</div></div>
-            <div class="shop-item"><div>👀 Oracle Hint (1 Clue)</div><div class="shop-price">250 G</div></div>
             <div class="shop-item"><div>👑 Custom Title</div><div class="shop-price">300 G</div></div>
 
-            <h3 style="color: var(--primary-yellow); margin-top: 20px;">TIER 3: EPIC</h3>
-            <div class="shop-item"><div>⏳ Time Turner (+24h Deadline)</div><div class="shop-price">400 G</div></div>
+            <h3 style="color:var(--primary-yellow); margin-top:15px; font-size:1rem;">🔥 LEGENDARY</h3>
             <div class="shop-item"><div>🛡️ Redemption (Hapus 1 Strike)</div><div class="shop-price">500 G</div></div>
-
-            <h3 style="color: var(--primary-yellow); margin-top: 20px;">TIER 4: LEGENDARY</h3>
-            <div class="shop-item"><div>🎲 Team Captain (Pilih Teman)</div><div class="shop-price">600 G</div></div>
-            <div class="shop-item"><div>📝 Method Master (Pilih Metode)</div><div class="shop-price">700 G</div></div>
-            <div class="shop-item"><div>🎟️ Homework Pass (Auto Complete)</div><div class="shop-price">1000 G</div></div>
-        </div>
-    </div>
-
-    <div id="rulesModal" class="modal-overlay">
-        <div class="modal-content">
-            <button onclick="closeModal('rulesModal')" class="close-modal">&times;</button>
-            <h2 class="section-title" style="font-size: 2rem;">SERVER RULES</h2>
-            <div style="margin-top: 20px; line-height: 1.6;">
-                <div style="margin-bottom: 15px; border-left: 3px solid var(--accent-red); padding-left: 10px;">
-                    <strong style="color: var(--accent-red);">THE PORTAL (Keluar Kelas)</strong><br>
-                    Tanpa Lanyard = Strike.<br>
-                    Strike 2: Denda -50 Gold.<br>
-                    Strike 3: Portal Locked (Gak boleh keluar lagi).
-                </div>
-                <div style="margin-bottom: 15px; border-left: 3px solid var(--accent-red); padding-left: 10px;">
-                    <strong style="color: var(--accent-red);">GEAR CHECK (Buku)</strong><br>
-                    No Book = Sewa (-100 Gold) atau Salin Manual.<br>
-                    Strike 3: Salin Manual + Damage -50 XP.
-                </div>
-                <div style="margin-bottom: 15px; border-left: 3px solid var(--accent-red); padding-left: 10px;">
-                    <strong style="color: var(--accent-red);">TOXIC WASTE (Kata Kasar)</strong><br>
-                    Strike 2: Denda -50 Gold/kata.<br>
-                    Strike 3: Muted (Duduk depan, diam 15 menit).
-                </div>
-                <div style="margin-bottom: 15px; border-left: 3px solid var(--accent-red); padding-left: 10px;">
-                    <strong style="color: var(--accent-red);">GADGET PROTOCOL</strong><br>
-                    Strike 1: HP di meja guru (15 menit).<br>
-                    Strike 3: Lapor Wali Kelas/BK.
-                </div>
-                <div style="margin-bottom: 15px; border-left: 3px solid var(--accent-red); padding-left: 10px;">
-                    <strong style="color: var(--accent-red);">GAME OVER (0 HP)</strong><br>
-                    Status: BANKRUPT.<br>
-                    Hukuman: Wajib buat PPT materi & presentasi.
-                </div>
-                <hr style="border: 1px solid #333; margin: 20px 0;">
-                <h3 style="color: var(--primary-yellow);">INCOME SOURCE</h3>
-                <ul style="list-style: none; margin-top: 10px;">
-                    <li>🗣️ Active Speaker: +10 Gold</li>
-                    <li>⏰ On Time Login: +10 Gold</li>
-                    <li>🦅 Early Bird (PR): +100 Gold</li>
-                    <li>💯 Perfect Score: +200 Gold</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div id="fullLeaderboardModal" class="modal-overlay">
-        <div class="modal-content">
-            <button onclick="closeModal('fullLeaderboardModal')" class="close-modal">&times;</button>
-            <h2 class="section-title">ALL PLAYERS</h2>
-            <div id="full-list-container" style="display: grid; gap: 10px; margin-top: 20px;">
-                </div>
+            <div class="shop-item"><div>🎲 Team Captain</div><div class="shop-price">600 G</div></div>
+            <div class="shop-item"><div>🎟️ Homework Pass</div><div class="shop-price">1000 G</div></div>
         </div>
     </div>
 
@@ -339,15 +234,33 @@
         <div class="modal-content">
             <button onclick="closeModal('missionsModal')" class="close-modal">&times;</button>
             <h2 class="section-title">MISSIONS</h2>
-            <div id="missions-container" style="display: grid; gap: 15px; margin-top: 20px;">Loading...</div>
+            <div id="missions-container" style="display:grid; gap:10px; margin-top:15px;">Loading...</div>
         </div>
     </div>
-
     <div id="libraryModal" class="modal-overlay">
         <div class="modal-content">
             <button onclick="closeModal('libraryModal')" class="close-modal">&times;</button>
             <h2 class="section-title">LIBRARY</h2>
-            <div id="library-container" style="display: grid; gap: 15px; margin-top: 20px;">Loading...</div>
+            <div id="library-container" style="display:grid; gap:10px; margin-top:15px;">Loading...</div>
+        </div>
+    </div>
+    <div id="rulesModal" class="modal-overlay">
+        <div class="modal-content">
+            <button onclick="closeModal('rulesModal')" class="close-modal">&times;</button>
+            <h2 class="section-title">RULES</h2>
+            <div style="margin-top:20px; line-height:1.6;">
+                <p>1. <b>No Lanyard = No Exit.</b> (Denda -50 G)</p>
+                <p>2. <b>No Book = Manual Writing.</b> (Denda -100 G)</p>
+                <p>3. <b>Toxic Words = Muted.</b> (Denda -50 G)</p>
+                <p>4. <b>0 HP = Game Over.</b> (Presentasi Materi)</p>
+            </div>
+        </div>
+    </div>
+    <div id="fullLeaderboardModal" class="modal-overlay">
+        <div class="modal-content">
+            <button onclick="closeModal('fullLeaderboardModal')" class="close-modal">&times;</button>
+            <h2 class="section-title">ALL PLAYERS</h2>
+            <div id="full-list-container" style="display:grid; gap:10px; margin-top:15px;"></div>
         </div>
     </div>
 
@@ -356,14 +269,16 @@
         const LEADERBOARD_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSXFMkHsaawvFVUVRMfkhlABiY0E3ohfLOpozxvwb3lqme-CrKBctX2kEZnZQRdlurfIlwx1rk-6fTQ/pub?gid=0&single=true&output=csv';
         const MISSIONS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSXFMkHsaawvFVUVRMfkhlABiY0E3ohfLOpozxvwb3lqme-CrKBctX2kEZnZQRdlurfIlwx1rk-6fTQ/pub?gid=1940746558&single=true&output=csv';
         const LIBRARY_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSXFMkHsaawvFVUVRMfkhlABiY0E3ohfLOpozxvwb3lqme-CrKBctX2kEZnZQRdlurfIlwx1rk-6fTQ/pub?gid=1636803017&single=true&output=csv';
+        const VOCAB_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSXFMkHsaawvFVUVRMfkhlABiY0E3ohfLOpozxvwb3lqme-CrKBctX2kEZnZQRdlurfIlwx1rk-6fTQ/pub?gid=36241624&single=true&output=csv';
 
-        let allPlayers = []; // Simpan data pemain buat search
+        let allPlayers = []; 
 
-        // --- FETCH MAIN DATA ---
         async function init() {
             await fetchLeaderboard();
+            fetchVocab();
         }
 
+        // --- 1. FETCH LEADERBOARD ---
         async function fetchLeaderboard() {
             try {
                 const res = await fetch(LEADERBOARD_URL);
@@ -377,98 +292,148 @@
                         name: c[1]?.replace(/"/g, '').trim(),
                         xp: c[2]?.replace(/"/g, '').trim(),
                         tier: c[3]?.replace(/"/g, '').trim(),
-                        // Asumsi Kolom F=Debt, G=HP, H=Gold (Kalo ga ada default 100/0)
                         debt: c[5]?.replace(/"/g, '').trim() || '',
-                        hp: c[6]?.replace(/"/g, '').trim() || '100', 
+                        hp: parseInt(c[6]?.replace(/"/g, '').trim() || '100'), 
                         gold: c[7]?.replace(/"/g, '').trim() || '0'
                     };
                 }).filter(p => p.name && p.rank);
 
-                renderHome(allPlayers);
+                renderLeaderboard(allPlayers);
+                renderFullList(allPlayers);
 
-            } catch (e) { console.error('Error:', e); }
+            } catch (e) { console.error('Leaderboard Error:', e); }
         }
 
-        function renderHome(players) {
-            // 1. Render Podium (Top 3)
+        // --- 2. RENDER FUNCTIONS ---
+        function renderLeaderboard(players) {
+            // Podium Top 3
             const top3 = players.slice(0, 3);
             let podiumHtml = '';
             
-            // Rank 2
-            if(top3[1]) podiumHtml += `<div class="podium-card rank-2"><div style="font-size:2rem;">🥈</div><div style="font-weight:bold;">${top3[1].name}</div><div class="player-score">${top3[1].xp} XP</div></div>`;
-            // Rank 1
-            if(top3[0]) podiumHtml += `<div class="podium-card rank-1"><div style="font-size:3rem; margin-bottom:10px;">👑</div><div style="font-weight:bold; font-size:1.1rem;">${top3[0].name}</div><div class="player-score">${top3[0].xp} XP</div><div style="font-size:0.8rem; background:#333; padding:5px; margin-top:5px; border-radius:5px;">${top3[0].tier}</div></div>`;
-            // Rank 3
-            if(top3[2]) podiumHtml += `<div class="podium-card rank-3"><div style="font-size:2rem;">🥉</div><div style="font-weight:bold;">${top3[2].name}</div><div class="player-score">${top3[2].xp} XP</div></div>`;
-            
+            top3.forEach((p, i) => {
+                let rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : 'rank-3';
+                let medal = i === 0 ? '👑' : i === 1 ? '🥈' : '🥉';
+                
+                podiumHtml += `
+                <div class="podium-card ${rankClass}" onclick="openProfileByName('${p.name}')">
+                    <div style="font-size:2rem; margin-bottom:5px;">${medal}</div>
+                    <div style="font-weight:bold; font-size:0.9rem;">${p.name}</div>
+                    <div style="color:var(--primary-yellow); font-weight:800;">${p.xp} XP</div>
+                    <div class="hp-hearts">${getHearts(p.hp)}</div>
+                </div>`;
+            });
             document.getElementById('podium-display').innerHTML = podiumHtml;
 
-            // 2. Render Extended List (Rank 4-9)
-            const next6 = players.slice(3, 9);
-            document.getElementById('extended-list-display').innerHTML = next6.map(p => `
-                <div class="list-item">
+            // List Rank 4-9
+            const listPlayers = players.slice(3, 9);
+            document.getElementById('list-display').innerHTML = listPlayers.map(p => `
+                <div class="player-row" onclick="openProfileByName('${p.name}')">
                     <div style="display:flex; gap:10px; align-items:center;">
-                        <span class="rank-num">#${p.rank}</span>
-                        <span>${p.name}</span>
+                        <div style="font-weight:bold; color:#666; width:25px;">#${p.rank}</div>
+                        <div style="font-weight:600; font-size:0.9rem;">${p.name}</div>
                     </div>
-                    <span style="color:var(--primary-yellow); font-weight:bold;">${p.xp} XP</span>
-                </div>
-            `).join('');
-
-            // 3. Populate Full Leaderboard Modal
-            document.getElementById('full-list-container').innerHTML = players.map(p => `
-                <div style="background:#222; padding:10px; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
-                    <div style="width:30px; font-weight:bold; color:#666;">#${p.rank}</div>
-                    <div style="flex:1; text-align:left; padding-left:10px;">${p.name}</div>
-                    <div style="color:var(--primary-yellow); font-weight:bold;">${p.xp} XP</div>
+                    <div style="text-align:right;">
+                        <div style="color:var(--primary-yellow); font-weight:bold; font-size:0.9rem;">${p.xp} XP</div>
+                    </div>
                 </div>
             `).join('');
         }
 
-        // --- SEARCH FUNCTION ---
-        function handleEnter(e) { if(e.key === 'Enter') searchPlayer(); }
-
-        function searchPlayer() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const player = allPlayers.find(p => p.name.toLowerCase().includes(query));
-
-            if (player) {
-                // Generate Profile Content
-                const html = `
-                    <div class="profile-header">
-                        <img src="https://api.dicebear.com/7.x/notionists/svg?seed=${player.name}&backgroundColor=F4D03F" class="profile-avatar">
-                        <h2 style="font-family:'Fredoka'; font-size:2rem; color:var(--primary-yellow);">${player.name}</h2>
-                        <div style="background:#333; display:inline-block; padding:5px 15px; border-radius:20px; font-size:0.9rem; margin-top:5px;">${player.tier}</div>
+        function renderFullList(players) {
+            document.getElementById('full-list-container').innerHTML = players.map(p => `
+                <div class="player-row" onclick="openProfileByName('${p.name}')">
+                    <div style="display:flex; gap:10px; align-items:center;">
+                        <div style="color:#666; width:30px;">#${p.rank}</div>
+                        <div>${p.name}</div>
                     </div>
-                    
-                    <div class="stat-grid">
-                        <div class="stat-box">
-                            <div class="stat-val" style="color:white;">${player.xp}</div>
-                            <div class="stat-label">Total XP</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-val" style="color:#E74C3C;">${player.hp}</div>
-                            <div class="stat-label">Health (HP)</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-val" style="color:#F4D03F;">${player.gold}</div>
-                            <div class="stat-label">Gold</div>
-                        </div>
-                    </div>
+                    <div style="color:var(--primary-yellow);">${p.xp} XP</div>
+                </div>
+            `).join('');
+        }
 
-                    <div style="text-align:left; background:#1A1A1A; padding:15px; border-radius:12px; margin-top:20px;">
-                        <div style="font-size:0.8rem; color:#888; margin-bottom:5px;">STATUS REPORT</div>
-                        ${player.debt ? `<div style="color:#E74C3C;"><i class="fas fa-exclamation-triangle"></i> MISSING: ${player.debt}</div>` : `<div style="color:#2ECC71;"><i class="fas fa-check-circle"></i> All Clear. Excellent!</div>`}
-                    </div>
-                `;
-                document.getElementById('profile-content').innerHTML = html;
-                openModal('profileModal');
+        // --- 3. HEART GENERATOR ❤️ ---
+        function getHearts(hp) {
+            // 1 Heart = 20 HP
+            let html = '';
+            let full = Math.floor(hp / 20);
+            let half = (hp % 20) >= 10 ? 1 : 0;
+            let empty = 5 - full - half;
+
+            for(let i=0; i<full; i++) html += '<i class="fas fa-heart"></i>';
+            if(half) html += '<i class="fas fa-heart-half-stroke"></i>';
+            for(let i=0; i<empty; i++) html += '<i class="far fa-heart"></i>';
+            return html;
+        }
+
+        // --- 4. PROFILE & SEARCH LOGIC ---
+        function showSuggestions(val) {
+            const box = document.getElementById('suggestions');
+            if(val.length < 1) { box.style.display = 'none'; return; }
+            
+            const matches = allPlayers.filter(p => p.name.toLowerCase().includes(val.toLowerCase()));
+            if(matches.length > 0) {
+                box.innerHTML = matches.map(p => `<div class="suggestion-item" onclick="openProfileByName('${p.name}')">${p.name}</div>`).join('');
+                box.style.display = 'block';
             } else {
-                alert('Player not found! Cek ejaan namanya ya.');
+                box.style.display = 'none';
             }
         }
 
-        // --- FETCH MISSIONS & LIBRARY (Sama kayak V4 tapi style Dark) ---
+        function openProfileByName(name) {
+            const p = allPlayers.find(x => x.name === name);
+            if(!p) return;
+
+            // Generate Profile HTML
+            const html = `
+                <img src="https://api.dicebear.com/7.x/notionists/svg?seed=${p.name}&backgroundColor=F4D03F" style="width:100px; height:100px; border-radius:50%; border:3px solid var(--primary-yellow); margin-bottom:15px;">
+                <h2 style="font-family:'Fredoka'; color:var(--primary-yellow); margin-bottom:5px;">${p.name}</h2>
+                <div style="background:#333; display:inline-block; padding:4px 12px; border-radius:20px; font-size:0.8rem; color:#ccc; margin-bottom:20px;">${p.tier}</div>
+                
+                <div class="hp-hearts" style="font-size:1.5rem; margin-bottom:20px;">${getHearts(p.hp)} <span style="font-size:0.8rem; color:#888;">(${p.hp}/100)</span></div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px;">
+                    <div class="glass-card" style="padding:15px; text-align:center;">
+                        <div style="font-size:1.5rem; font-weight:bold; color:white;">${p.xp}</div>
+                        <div style="font-size:0.7rem; color:#888;">Total XP</div>
+                    </div>
+                    <div class="glass-card" style="padding:15px; text-align:center;">
+                        <div style="font-size:1.5rem; font-weight:bold; color:var(--primary-yellow);">${p.gold}</div>
+                        <div style="font-size:0.7rem; color:#888;">Gold</div>
+                    </div>
+                </div>
+
+                <div style="background:#1A1A1A; padding:15px; border-radius:10px; text-align:left; border:1px solid #333;">
+                    <div style="font-size:0.8rem; color:#666; margin-bottom:5px; text-transform:uppercase;">Quest Status</div>
+                    ${p.debt ? `<div style="color:var(--accent-red); font-weight:bold;"><i class="fas fa-exclamation-circle"></i> MISSING: ${p.debt}</div>` 
+                             : `<div style="color:var(--accent-green); font-weight:bold;"><i class="fas fa-check-circle"></i> All Missions Cleared</div>`}
+                </div>
+            `;
+            
+            document.getElementById('profile-content').innerHTML = html;
+            document.getElementById('suggestions').style.display = 'none';
+            document.getElementById('searchInput').value = '';
+            openModal('profileModal');
+        }
+
+        // --- 5. VOCAB OF THE DAY (RANDOM) ---
+        async function fetchVocab() {
+            try {
+                const res = await fetch(VOCAB_URL);
+                const text = await res.text();
+                const rows = text.split('\n').slice(1);
+                // Pilih Random 1 Kata
+                const randomRow = rows[Math.floor(Math.random() * rows.length)];
+                if(randomRow) {
+                    const c = randomRow.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                    document.getElementById('v-word').innerText = c[0].replace(/"/g,'');
+                    document.getElementById('v-meaning').innerText = c[1].replace(/"/g,'');
+                    document.getElementById('v-example').innerText = `"${c[2].replace(/"/g,'')}"`;
+                    document.getElementById('vocab-display').style.display = 'block';
+                }
+            } catch(e) {}
+        }
+
+        // --- 6. MISSIONS & LIBRARY FETCH (SAME AS BEFORE) ---
         async function fetchMissions() {
             try {
                 const res = await fetch(MISSIONS_URL);
@@ -477,11 +442,16 @@
                 document.getElementById('missions-container').innerHTML = rows.map(row => {
                     const c = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
                     if (!c[1]) return '';
-                    return `<div style="background:#222; padding:15px; border-radius:10px; border-left:4px solid var(--primary-yellow);">
+                    
+                    // Late Checker Logic (Simple String Check or Date)
+                    let isLate = false; 
+                    // Kalau mau logic tanggal beneran, butuh format YYYY-MM-DD di CSV
+                    
+                    return `<div style="background:#222; padding:15px; border-radius:10px; border-left:4px solid var(--primary-yellow); position:relative;">
                         <div style="font-weight:bold; color:var(--primary-yellow);">${c[0]?.replace(/"/g,'')}</div>
-                        <div style="font-size:1.1rem;">${c[1]?.replace(/"/g,'')}</div>
+                        <div style="font-size:1rem;">${c[1]?.replace(/"/g,'')}</div>
                         <div style="font-size:0.8rem; color:#888; margin-top:5px;">Due: ${c[2]?.replace(/"/g,'')}</div>
-                        ${c[4] ? `<a href="${c[4].replace(/"/g,'')}" target="_blank" class="btn btn-primary" style="margin-top:10px; width:100%; font-size:0.8rem;">SUBMIT</a>` : ''}
+                        ${c[4] ? `<a href="${c[4].replace(/"/g,'')}" target="_blank" class="btn" style="background:var(--primary-yellow); color:black; margin-top:10px; font-size:0.8rem; padding:8px 15px; display:inline-block; border-radius:5px; text-decoration:none;">SUBMIT</a>` : ''}
                     </div>`;
                 }).join('');
             } catch(e) {}
@@ -496,12 +466,9 @@
                     const c = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
                     if (!c[1]) return '';
                     return `<a href="${c[2]?.replace(/"/g,'')}" target="_blank" style="text-decoration:none; color:white;">
-                        <div style="background:#222; padding:15px; border-radius:10px; display:flex; align-items:center; gap:15px; transition:0.2s;">
-                            <i class="fas fa-book-open" style="color:var(--primary-yellow); font-size:1.5rem;"></i>
-                            <div>
-                                <div style="font-weight:bold;">${c[1]?.replace(/"/g,'')}</div>
-                                <div style="font-size:0.8rem; color:#888;">${c[0]?.replace(/"/g,'')}</div>
-                            </div>
+                        <div style="background:#222; padding:15px; border-radius:10px; display:flex; align-items:center; gap:15px;">
+                            <i class="fas fa-book" style="color:var(--primary-yellow);"></i>
+                            <div><div style="font-weight:bold;">${c[1]?.replace(/"/g,'')}</div><div style="font-size:0.8rem; color:#888;">${c[0]?.replace(/"/g,'')}</div></div>
                         </div>
                     </a>`;
                 }).join('');
@@ -521,7 +488,7 @@
         }
         window.onclick = function(e) { if(e.target.classList.contains('modal-overlay')) e.target.classList.remove('active'); }
 
-        // Start
+        // Start App
         init();
 
     </script>
