@@ -582,7 +582,6 @@
         let activeSecretCodes = {};
 
         // Fungsi narik data dari Google Sheets
-                // Fungsi narik data dari Google Sheets
         async function fetchSecretCodes() {
             try {
                 const response = await fetch(SECRET_CSV_URL);
@@ -603,12 +602,6 @@
                         if(status === 'ON') {
                             activeSecretCodes[code] = reward; 
                         }
-                    }
-                }
-            } catch (error) {
-                console.error("Gagal memuat Secret Code:", error);
-            }
-        }
                     }
                 }
             } catch (error) {
