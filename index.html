@@ -582,6 +582,7 @@
         let activeSecretCodes = {};
 
         // Fungsi narik data dari Google Sheets
+                // Fungsi narik data dari Google Sheets
         async function fetchSecretCodes() {
             try {
                 const response = await fetch(SECRET_CSV_URL);
@@ -590,15 +591,24 @@
                 
                 activeSecretCodes = {};
                 for(let i = 1; i < rows.length; i++) {
-                    const cols = rows[i].split(',');
+                    // Pake regex ini biar koma di dalem kalimat soal gak bikin error
+                    const cols = rows[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                    
                     if(cols.length >= 4) {
-                        const code = cols[1].trim().toUpperCase();
-                        const reward = cols[2].trim();
-                        const status = cols[3].trim().toUpperCase();
+                        // Bersihin sisa tanda kutip biar tebakannya akurat
+                        const code = cols[1].replace(/"/g, '').trim().toUpperCase();
+                        const reward = cols[2].replace(/"/g, '').trim();
+                        const status = cols[3].replace(/"/g, '').trim().toUpperCase();
                         
                         if(status === 'ON') {
                             activeSecretCodes[code] = reward; 
                         }
+                    }
+                }
+            } catch (error) {
+                console.error("Gagal memuat Secret Code:", error);
+            }
+        }
                     }
                 }
             } catch (error) {
